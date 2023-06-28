@@ -9,6 +9,7 @@
 🔥 Site developed with Reactjs and Hosted on Netlify
 ```
 
+[Video_title](./ui.mp4)
 ## 💻 Installation
 
 1. Install the project dependencies by running `$ yarn install`.
