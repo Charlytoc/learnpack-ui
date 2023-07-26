@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useStore from '../../store';
+import socketService from '../../services/socket'
+
 
 import { toast } from 'react-hot-toast';
 import { Dropdown } from '../Dropdown';
@@ -19,12 +21,20 @@ export const Header = () => {
   const [open, setOpen] = useState(false);
   const [langToggle, setLangToggle] = useState(false);
 
+
+  useEffect(() => {
+    socketService.start('http://localhost:3000'); // Pass your server URL here
+    // Create your scope
+   
+  
+  }, [])
+
   const state = useStore();
   const { setExercise } = state;
 
   const contentAction = [
-    { name: 'Test', link: 'uno', selected: true },
-    { name: 'Reset', link: 'dos', selected: false },
+    { name: 'Test', link: 'test', selected: true },
+    // { name: 'Reset', link: 'dos', selected: false },
   ];
 
   const HamburgerBehavior = () => {
@@ -38,6 +48,19 @@ export const Header = () => {
     setExercise({ ...item });
   };
 
+
+  const handleClick = () => {
+    const scope = socketService.createScope('build');
+
+
+    if (scope) {
+        scope.emit('build');
+        toast.success('Build request sent!');
+    } else {
+        toast.error('Scope is not defined!');
+    }
+}
+
   return (
     <NavContainer>
       <SectionContainer id='navTop'>
@@ -47,7 +70,7 @@ export const Header = () => {
             <source srcSet={'logo.png'} media='(max-width: 160px)' />
             <img src={'logo.png'} alt='LearnPack' />
           </picture>
-          <ButtonPrimary fullwidth onClick={() => toast.success('Build completed!')}>
+          <ButtonPrimary fullwidth onClick={handleClick}>
             <svg
               width='15'
               height='13'

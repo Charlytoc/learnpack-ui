@@ -4,7 +4,6 @@ import { Toaster } from 'react-hot-toast';
 import styled from 'styled-components';
 
 
-
 import useStore from '../store';
 import InjectHtml from '../components/InjectHtml';
 
@@ -47,6 +46,7 @@ export default function Root() {
       <ToastDiv>
         <Toaster position='top-center' reverseOrder={false} />
       </ToastDiv>
+      
       <PageContainer>
         <Navbar />
         <SectionContainer>

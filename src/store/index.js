@@ -23,7 +23,7 @@ const useStore = create((set, get) => ({
   fetchFiles: async pond => {
     const response = await fetch(pond);
     set({ files: await response.json() });
-    set({ contentSelected: await fetchExercise({ url: `${HOST}/${DETAILEXERCISE}`, slug: "00-Welcome" }) });
+    set({ contentSelected: await fetchExercise({ url: `${HOST}/${DETAILEXERCISE}`, slug: "01-hello-world" }) });
 
   },
 }));
