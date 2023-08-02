@@ -35,9 +35,8 @@ export default function Root() {
   const { fetchFiles, selected, contentSelected } = state;
 
   useEffect(() => {
-
+    // console.log("Fetching exercises");
     fetchFiles(`${HOST}/exercise`);
-
   }, []);
 
 
@@ -46,7 +45,6 @@ export default function Root() {
       <ToastDiv>
         <Toaster position='top-center' reverseOrder={false} />
       </ToastDiv>
-      
       <PageContainer>
         <Navbar />
         <SectionContainer>

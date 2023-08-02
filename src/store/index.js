@@ -20,10 +20,14 @@ const useStore = create((set, get) => ({
   fetchSelectedFile: async ({ url, slug }) => {
     set({ contentSelected: await fetchExercise({ url, slug }) });
   },
+  
   fetchFiles: async pond => {
+    // console.log(pond, "pond is the url to fetch files");
     const response = await fetch(pond);
-    set({ files: await response.json() });
-    set({ contentSelected: await fetchExercise({ url: `${HOST}/${DETAILEXERCISE}`, slug: "01-hello-world" }) });
+    const files = await response.json()
+    // console.log(files);
+    set({ files:  files});
+    set({ contentSelected: await fetchExercise({ url: `${HOST}/${DETAILEXERCISE}`, slug:  files[0].slug }) });
 
   },
 }));

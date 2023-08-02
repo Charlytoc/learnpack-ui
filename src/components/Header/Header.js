@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import useStore from '../../store';
-import socketService from '../../services/socket'
+import Socket from '../../services/socket'
 
 
 import { toast } from 'react-hot-toast';
-import { Dropdown } from '../Dropdown';
+import { Dropdown } from '../Dropdown/Dropdown';
 
 import {
   LeftWrap,
@@ -22,15 +22,9 @@ export const Header = () => {
   const [langToggle, setLangToggle] = useState(false);
 
 
-  useEffect(() => {
-    socketService.start('http://localhost:3000'); // Pass your server URL here
-    // Create your scope
-   
-  
-  }, [])
 
   const state = useStore();
-  const { setExercise } = state;
+  const { setExercise, contentSelected, selected } = state;
 
   const contentAction = [
     { name: 'Test', link: 'test', selected: true },
@@ -48,17 +42,25 @@ export const Header = () => {
     setExercise({ ...item });
   };
 
-
   const handleClick = () => {
-    const scope = socketService.createScope('build');
+    
+    Socket.start('http://localhost:3000');
+    
+    setTimeout(() => {
+        const compilerSocket = Socket.createScope('compiler');
+        if (compilerSocket) {
+            const data = {
+              exerciseSlug: selected.slug
+            }
+            console.log(data);
+            compilerSocket.emit('build', data);
+            // compilerSocket.success('Build request sent!');
+        } else {
+            console.error('Scope is not defined!');
+        }
+    }, 2000); 
 
-
-    if (scope) {
-        scope.emit('build');
-        toast.success('Build request sent!');
-    } else {
-        toast.error('Scope is not defined!');
-    }
+    toast.success('Build completed!')
 }
 
   return (
@@ -70,7 +72,8 @@ export const Header = () => {
             <source srcSet={'logo.png'} media='(max-width: 160px)' />
             <img src={'logo.png'} alt='LearnPack' />
           </picture>
-          <ButtonPrimary fullwidth onClick={handleClick}>
+          {/* DELETED FULLWITDH <ButtonPrimary fullwidth onClick={handleClick}> */}
+          <ButtonPrimary onClick={handleClick}>
             <svg
               width='15'
               height='13'
@@ -121,7 +124,7 @@ export const Header = () => {
         </LeftWrap>
 
         <RightWrap>
-          <a onClick={() => setOpen(!open)}>
+          <span onClick={() => setOpen(!open)}>
             <BoxButton>
               <svg
                 width='24'
@@ -138,7 +141,7 @@ export const Header = () => {
                 />
               </svg>
             </BoxButton>
-          </a>
+          </span>
         </RightWrap>
 
         <SidebarContainer className={open && 'on'}>
@@ -232,7 +235,7 @@ export const Header = () => {
                     const titles = item.slug.split('-');
                     return (
                       <>
-                        <li key={`file${index}`} onClick={() => HandlerState(item)}>
+                        <li key={`file-${index}`} onClick={() => HandlerState(item)}>
                           <span>
                             <p>{titles[0]}</p>
                             <b>Exercise:</b> {` ${titles[1]}`}

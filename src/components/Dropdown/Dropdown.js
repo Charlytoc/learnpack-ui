@@ -31,8 +31,8 @@ export const Dropdown = props => {
             {Array.isArray(props.content) &&
               props.content.map((item, index) => {
                 return (
-                  <Link key={'Menu-{$index}'} role='button' to={item.link}>
-                    <div className='item'>{item.name}</div>
+                  <Link key={`Menu-${index}`} role='button' to={item.link}>
+                    <span className='item'>{item.name}</span>
                   </Link>
                 );
               })}

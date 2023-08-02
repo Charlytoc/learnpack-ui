@@ -8,7 +8,7 @@ export const Menu = () => {
   const [langToggle, setLangToggle] = useState(false);
 
   const state = useStore();
-  const { setExercise, selected, files } = state;
+  const { setExercise, selected, files, contentSelected } = state;
 
   const languageAction = [
     { name: 'ENG', link: '', selected: true },
@@ -18,27 +18,29 @@ export const Menu = () => {
   const HandlerState = (action) => {
 
     const position = selected?.position || 0
-    console.log('position = ', position)
+    // console.log('position = ', position)
 
 
     if (action === "prev" && position !== 0) setExercise(files[position - 1]);
-    console.log('selected.position - 1 = ', position - 1)
+    // console.log('selected.position - 1 = ', position - 1)
 
     if (action === "next") setExercise(files[position + 1]);
-    console.log('selected.position + 1 = ', position + 1)
+    // console.log('selected.position + 1 = ', position + 1)
 
     // }
-
-
   };
 
+
+  const handleFeedback = () => {
+    console.log(contentSelected.body);
+  }
   return (
     <NavContainer>
       <SectionContainer id='secondNav'>
         {/* MOBILE */}
 
         <LeftWrap style={{ marginLeft: '12px' }}>
-          <a onClick={() => HandlerState("prev")}>
+          <span onClick={() => HandlerState("prev")}>
             <BoxButton>
               <svg
                 width='30'
@@ -54,8 +56,8 @@ export const Menu = () => {
                 />
               </svg>
             </BoxButton>
-          </a>
-          <a onClick={() => HandlerState("next")}>
+          </span>
+          <span onClick={() => HandlerState("next")}>
             <BoxButton>
               <svg
                 width='30'
@@ -71,7 +73,13 @@ export const Menu = () => {
                 />
               </svg>
             </BoxButton>
-          </a>
+          </span>
+  
+          <span onClick={() => handleFeedback()}>
+            <BoxButton>
+              Get help
+            </BoxButton>
+          </span>
         </LeftWrap>
 
         <RightWrap style={{ marginRight: '12px' }}>

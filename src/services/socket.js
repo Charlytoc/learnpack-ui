@@ -42,10 +42,14 @@ export default {
     socket: null,
     start: function (host, onDisconnect = null) {
         this.socket = io.connect(host)
-        this.socket.on('disconnect', () => onDisconnect && onDisconnect())
+        if (this.socket) {
+            this.socket.on('disconnect', () => onDisconnect && onDisconnect())
+            console.log("SUCCESSFUL");
+        } else {
+            console.error(`Failed to connect to host: ${host}`);
+        }
     },
     createScope: function (scopeName) {
-
         const scope = {
             socket: this.socket,
             name: scopeName,

@@ -6,7 +6,7 @@ const SectionContainer = ({ children, ...rest }) => {
 };
 
 SectionContainer.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   rest: PropTypes.element,
 };
 
