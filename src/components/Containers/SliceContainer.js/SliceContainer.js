@@ -6,7 +6,7 @@ const SliceContainer = ({ children, ...rest }) => (
 );
 
 SliceContainer.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
 };
 
 SliceContainer.defaultProps = {};

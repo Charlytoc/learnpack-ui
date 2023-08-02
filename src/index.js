@@ -6,8 +6,8 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, Theme } from './styles/index';
 
 const Root = lazy(() => import('./routes/root'));
-const Uno = lazy(() => import('./routes/uno'));
-const Dos = lazy(() => import('./routes/dos'));
+const Test = lazy(() => import('./routes/test'));
+// const Dos = lazy(() => import('./routes/dos'));
 const ErrorPage = lazy(() => import('./routes/error-page'));
 
 const router = createBrowserRouter([
@@ -18,13 +18,13 @@ const router = createBrowserRouter([
     // Rutas anidadas
     children: [
       {
-        path: 'uno',
-        element: <Uno />,
+        path: 'test',
+        element: <Test />,
       },
-      {
-        path: 'dos',
-        element: <Dos />,
-      },
+      // {
+      //   path: 'dos',
+      //   element: <Dos />,
+      // },
     ],
   },
 ]);

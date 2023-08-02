@@ -4,7 +4,6 @@ import { Toaster } from 'react-hot-toast';
 import styled from 'styled-components';
 
 
-
 import useStore from '../store';
 import InjectHtml from '../components/InjectHtml';
 
@@ -36,9 +35,8 @@ export default function Root() {
   const { fetchFiles, selected, contentSelected } = state;
 
   useEffect(() => {
-
+    // console.log("Fetching exercises");
     fetchFiles(`${HOST}/exercise`);
-
   }, []);
 
 
